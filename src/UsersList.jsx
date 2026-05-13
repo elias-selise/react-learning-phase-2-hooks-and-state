@@ -5,19 +5,36 @@ const UsersList = () => {
     const { data: users, loading, error } = useFetch('https://jsonplaceholder.typicode.com/users');
 
     return (
-        <div style={{ marginTop: '2rem', padding: '1rem', borderTop: '2px solid #ccc' }}>
-            <h2>Users List (API Integration Task)</h2>
+        <div className="table-container">
+            <h2>Users Data Table</h2>
             {loading && <p>Loading users...</p>}
             {error && <div className="error">{error}</div>}
             
             {!loading && !error && users && (
-                <ul style={{ listStyleType: 'none', padding: 0 }}>
-                    {users.map(user => (
-                        <li key={user.id} style={{ padding: '0.5rem', borderBottom: '1px solid #eee' }}>
-                            <strong>{user.name}</strong> - {user.email}
-                        </li>
-                    ))}
-                </ul>
+                <table className="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Website</th>
+                            <th>Company</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {users.map(user => (
+                            <tr key={user.id}>
+                                <td>{user.id}</td>
+                                <td>{user.name}</td>
+                                <td>{user.username}</td>
+                                <td>{user.email}</td>
+                                <td>{user.website}</td>
+                                <td>{user.company.name}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             )}
         </div>
     );
